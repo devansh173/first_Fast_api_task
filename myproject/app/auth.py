@@ -8,7 +8,7 @@ from app.core.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-fake_user = {"username": "admin", "password": pwd_context.hash("admin123")}
+fake_user = {"username": "admin", "password": pwd_context.hash("admin123"[:72])}
 
 def create_access_token(data: dict):
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
