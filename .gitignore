@@ -1,0 +1,47 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# FastAPI / Uvicorn
+*.log
+
+# VS Code settings
+.vscode/
+
+# PyCharm
+.idea/
+
+# Byte-compiled
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Environment variables / credentials
+.env
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# MyPy / pytest
+.mypy_cache/
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Local config
+*.local
