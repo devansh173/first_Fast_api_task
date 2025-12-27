@@ -3,6 +3,7 @@ from app.auth import authenticate_user, create_access_token
 
 router = APIRouter(tags=["Auth"])
 
+
 @router.post("/login")
 def login(username: str, password: str):
     if not authenticate_user(username, password):
