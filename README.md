@@ -4,11 +4,10 @@ A FastAPI application with JWT authentication, multi-database support (Oracle, P
 
 ## 🌐 Live Application
 
-**Available at your primary URL:** https://first-fast-api-task.onrender.com
+**Available at URL:** https://first-fast-api-task.onrender.com
 
 - **Frontend Dashboard:** https://first-fast-api-task.onrender.com/
 - **API Documentation (Swagger UI):** https://first-fast-api-task.onrender.com/docs
-- **Alternative API Docs (ReDoc):** https://first-fast-api-task.onrender.com/redoc
 
 ## Features
 
