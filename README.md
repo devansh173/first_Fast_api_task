@@ -2,6 +2,14 @@
 
 A FastAPI application with JWT authentication, multi-database support (Oracle, PostgreSQL, MySQL), and efficient large file upload capabilities.
 
+## 🌐 Live Application
+
+**Available at your primary URL:** https://first-fast-api-task.onrender.com
+
+- **Frontend Dashboard:** https://first-fast-api-task.onrender.com/
+- **API Documentation (Swagger UI):** https://first-fast-api-task.onrender.com/docs
+- **Alternative API Docs (ReDoc):** https://first-fast-api-task.onrender.com/redoc
+
 ## Features
 
 - ✅ **JWT-based Authentication** - Secure token-based authentication
@@ -52,6 +60,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 ## Running the Application
 
+### Local Development
+
 ```bash
 cd myproject
 uvicorn app.main:app --reload
@@ -60,6 +70,10 @@ uvicorn app.main:app --reload
 The API will be available at `http://127.0.0.1:8000`
 
 API documentation (Swagger UI): `http://127.0.0.1:8000/docs`
+
+### Production (Render)
+
+The application is deployed and available at: **https://first-fast-api-task.onrender.com**
 
 ## API Endpoints
 
@@ -198,16 +212,18 @@ Content-Type: multipart/form-data
 
 ## Testing with cURL
 
+### Using Production URL (Render)
+
 ### 1. Login and get token:
 ```bash
-curl -X POST "http://127.0.0.1:8000/auth/login" \
+curl -X POST "https://first-fast-api-task.onrender.com/auth/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "username=admin&password=admin123"
 ```
 
 ### 2. Execute database query:
 ```bash
-curl -X POST "http://127.0.0.1:8000/db/query" \
+curl -X POST "https://first-fast-api-task.onrender.com/db/query" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -H "Content-Type: application/json" \
   -d '{
@@ -218,10 +234,14 @@ curl -X POST "http://127.0.0.1:8000/db/query" \
 
 ### 3. Upload a file:
 ```bash
-curl -X POST "http://127.0.0.1:8000/upload/bigfile" \
+curl -X POST "https://first-fast-api-task.onrender.com/upload/bigfile" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -F "file=@/path/to/your/file.pdf"
 ```
+
+### Using Local Development URL
+
+Replace `https://first-fast-api-task.onrender.com` with `http://127.0.0.1:8000` in the above examples for local testing.
 
 ## Project Structure
 
