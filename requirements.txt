@@ -1,0 +1,16 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-jose[cryptography]==3.3.0
+bcrypt==5.0.0
+python-multipart==0.0.12
+pydantic==2.9.2
+sqlalchemy==2.0.36
+
+# Database drivers
+psycopg2-binary==2.9.10
+mysql-connector-python==9.1.0
+cx_Oracle==8.3.0
+
+# Optional: for better Oracle support
+# oracle-instantclient (install separately based on your OS)
+
