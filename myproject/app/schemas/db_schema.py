@@ -4,14 +4,17 @@ from typing import Optional
 
 class DBRequest(BaseModel):
     """Schema for database query request with validation."""
-    db_type: str = Field(
-        ...,
-        pattern="^(oracle|postgres|mysql)$",
-        description="Database type: oracle, postgres, or mysql"
-    )
     query: str = Field(..., min_length=1, description="SQL query to execute")
     
-    # Optional connection parameters (if not provided, uses config defaults)
+    # Option 1: Use stored connection by ID
+    connection_id: Optional[int] = Field(None, description="ID of stored database connection")
+    
+    # Option 2: Provide connection details directly (if connection_id not provided)
+    db_type: Optional[str] = Field(
+        None,
+        pattern="^(oracle|postgres|mysql)$",
+        description="Database type: oracle, postgres, or mysql (required if connection_id not provided)"
+    )
     host: Optional[str] = Field(None, description="Database host")
     port: Optional[int] = Field(None, description="Database port")
     database: Optional[str] = Field(None, description="Database name")

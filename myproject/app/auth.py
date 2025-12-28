@@ -3,18 +3,17 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
 import bcrypt
+from sqlalchemy.orm import Session
 from app.core.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from app.models import User, get_db, init_db
+from app.schemas.user_schema import UserCreate, UserResponse
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
-# Demo user - In production, this should be stored in a database
-# Default credentials: username="admin", password="admin123"
-FAKE_USER = {
-    "username": "admin",
-    "hashed_password": "$2b$12$9z5Sc3IIG2jSUeIIt/TYVewqdLGc3V8P24rlr4YZwbNwhYTF7yRLW"  # password: "admin123"
-}
+# Initialize database on startup
+init_db()
 
 
 def hash_password(password: str) -> str:
@@ -37,11 +36,17 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         return False
 
 
-def authenticate_user(username: str, password: str) -> bool:
+def get_user_by_username(db: Session, username: str):
+    """Get a user by username from the database."""
+    return db.query(User).filter(User.username == username).first()
+
+
+def authenticate_user(db: Session, username: str, password: str) -> bool:
     """Authenticate a user by username and password."""
-    if username != FAKE_USER["username"]:
+    user = get_user_by_username(db, username)
+    if not user:
         return False
-    return verify_password(password, FAKE_USER["hashed_password"])
+    return verify_password(password, user.hashed_password)
 
 
 def create_access_token(data: dict):
@@ -68,10 +73,37 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
 
 
+@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+async def register(user_data: UserCreate, db: Session = Depends(get_db)):
+    """Register a new user."""
+    # Check if user already exists
+    existing_user = get_user_by_username(db, user_data.username)
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already registered"
+        )
+    
+    # Create new user
+    hashed_password = hash_password(user_data.password)
+    new_user = User(
+        username=user_data.username,
+        hashed_password=hashed_password
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    return new_user
+
+
 @router.post("/login")
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db)
+):
     """Login endpoint to authenticate and get JWT token."""
-    if not authenticate_user(form_data.username, form_data.password):
+    if not authenticate_user(db, form_data.username, form_data.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
