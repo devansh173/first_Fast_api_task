@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.models import DatabaseConnection, get_db
-from app.schemas.user_schema import (
+from myproject.app.models import DatabaseConnection, get_db
+from myproject.app.schemas.user_schema import (
     DatabaseConnectionCreate,
     DatabaseConnectionResponse,
     DatabaseConnectionUpdate
 )
-from app.auth import get_current_user
+from myproject.app.auth import get_current_user
 
 router = APIRouter(prefix="/db-connections", tags=["Database Connections"])
 

@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-from app.core.config import DATABASES
+from myproject.app.core.config import DATABASES
 from typing import Optional
 
 

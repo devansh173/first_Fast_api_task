@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 from jose import jwt, JWTError
 import bcrypt
 from sqlalchemy.orm import Session
-from app.core.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
-from app.models import User, get_db, init_db
-from app.schemas.user_schema import UserCreate, UserResponse
+from myproject.app.core.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from myproject.app.models import User, get_db, init_db
+from myproject.app.schemas.user_schema import UserCreate, UserResponse
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 

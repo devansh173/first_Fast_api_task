@@ -2,10 +2,10 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
-from app.schemas.db_schema import DBRequest
-from app.database import get_connection
-from app.auth import get_current_user
-from app.models import DatabaseConnection, get_db
+from myproject.app.schemas.db_schema import DBRequest
+from myproject.app.database import get_connection
+from myproject.app.auth import get_current_user
+from myproject.app.models import DatabaseConnection, get_db
 
 router = APIRouter(prefix="/db", tags=["Database"])
 

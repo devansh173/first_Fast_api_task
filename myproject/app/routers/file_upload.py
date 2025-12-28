@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status
 import shutil
 import os
 from pathlib import Path
-from app.auth import get_current_user
+from myproject.app.auth import get_current_user
 
 router = APIRouter(prefix="/upload", tags=["File Upload"])
 

@@ -2,12 +2,12 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
-from app.routers.db_router import router as db_router
-from app.routers.file_upload import router as file_router
-from app.routers.db_connection_router import router as db_connection_router
-from app.auth import router as auth_router
-from app.models import init_db, User, SessionLocal
-from app.auth import hash_password
+from myproject.app.routers.db_router import router as db_router
+from myproject.app.routers.file_upload import router as file_router
+from myproject.app.routers.db_connection_router import router as db_connection_router
+from myproject.app.auth import router as auth_router
+from myproject.app.models import init_db, User, SessionLocal
+from myproject.app.auth import hash_password
 
 app = FastAPI(title="Multi-Database API", description="FastAPI with JWT Auth, Multi-DB Support, and File Upload")
 
