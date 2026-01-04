@@ -11,10 +11,10 @@ from myproject.app.auth import hash_password
 
 app = FastAPI(title="Multi-Database API", description="FastAPI with JWT Auth, Multi-DB Support, and File Upload")
 
-# Initialize database
+
 init_db()
 
-# Create default admin user if it doesn't exist
+
 def create_default_admin():
     db = SessionLocal()
     try:

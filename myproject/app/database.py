@@ -13,7 +13,7 @@ def build_connection_string(
     password: Optional[str] = None
 ) -> str:
     """Build a database connection string dynamically or use defaults."""
-    # If all connection parameters are provided, build custom connection string
+    
     if all([host, port, database, username, password]):
         if db_type == "oracle":
             return f"oracle+cx_oracle://{username}:{password}@{host}:{port}/{database}"
@@ -22,7 +22,7 @@ def build_connection_string(
         elif db_type == "mysql":
             return f"mysql+mysqlconnector://{username}:{password}@{host}:{port}/{database}"
     
-    # Otherwise, use default from config
+    
     if db_type not in DATABASES:
         raise ValueError("Invalid database type. Choose oracle, postgres, or mysql.")
     return DATABASES[db_type]
